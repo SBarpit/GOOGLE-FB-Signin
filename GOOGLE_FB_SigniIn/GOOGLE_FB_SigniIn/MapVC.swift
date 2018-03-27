@@ -27,10 +27,9 @@ class MapVC: UIViewController {
     }
     override func loadView() {
        
-        let camera = GMSCameraPosition.camera(withLatitude: 28.516682, longitude: 77.258041, zoom: 15.0)
+        let camera = GMSCameraPosition.camera(withLatitude: 28.516682, longitude: 77.258041, zoom: 16.0)
         mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
-        
-        view.addSubview(mapView)
+        view = mapView
         
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2D(latitude: 28.516682, longitude: 77.258041)
