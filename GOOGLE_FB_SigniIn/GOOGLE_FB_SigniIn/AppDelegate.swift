@@ -20,30 +20,100 @@ protocol SignInSuccess {
 }
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    var delegate:SignInSuccess?
     var name,email:String?
     
-    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
-        if let error = error {
-            print("\(error.localizedDescription)")
-        } else {
-            // Perform any operations on signed in user here.
-            self.name = user.profile.name
-            self.email = user.profile.email
-            print(self.email!)
-            print(self.name!)
-            self.delegate?.mydata(self.name, self.email)
-
-            // ...
-        }
-    }
+    
     
 
     var window: UIWindow?
 
-
+/*
+     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+     
+     //MARK:--> Initialize facebook SDK
+     
+     FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+     
+     //MARK:--> Providing client ID and google sign in delegate
+    
+     GIDSignIn.sharedInstance().clientID = "217652371245-ftqsu0p0gj31u3j6kkslk9t8rvg4077c.apps.googleusercontent.com"
+     GIDSignIn.sharedInstance().delegate = self
+     
+     //MARK:--> Providing API key to google maps and places
+     
+     GMSServices.provideAPIKey("AIzaSyCTsuqQHKE76BKkodBzMMilo9z4s7rMq10")
+     GMSPlacesClient.provideAPIKey("AIzaSyCTsuqQHKE76BKkodBzMMilo9z4s7rMq10")
+     
+     return true
+     
+     }
+     
+     func applicationWillResignActive(_ application: UIApplication) {
+     
+     //MARK: --> to handle app states
+     
+     FBSDKAppEvents.activateApp()
+     
+     }
+     
+     //MARK:--> Method to handle Google sign in
+     
+     func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+     
+     return GIDSignIn.sharedInstance().handle(url,
+     sourceApplication: options[UIApplicationOpenURLOptionsKey.sourceApplication] as? String,
+     annotation: options[UIApplicationOpenURLOptionsKey.annotation])
+    
+     }
+     
+     //MARK:--> Perform operations after signing into google
+     
+     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!,
+     withError error: Error!) {
+     
+     if let error = error {
+     
+     print("\(error.localizedDescription)")
+     
+     } else {
+     
+     //      let userId = user.userID                  // For client-side use only!
+     //      let idToken = user.authentication.idToken // Safe to send to the server
+     //      let fullName = user.profile.name
+     //      let givenName = user.profile.givenName
+     //      let familyName = user.profile.familyName
+     //      let email = user.profile.email
+     
+     }
+     }
+     
+     //MARK:--> Perform any operations when the user disconnects from google from app here.
+     
+     func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!,
+     withError error: Error!) {
+     
+     MapsViewController().navigationController?.popViewController(animated: true)
+     
+     }
+     
+     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+     
+     let googleDidHandle = GIDSignIn.sharedInstance().handle(url,
+     sourceApplication: sourceApplication,
+     annotation: annotation)
+     
+     let facebookDidHandle = FBSDKApplicationDelegate.sharedInstance().application(
+     application,
+     open: url,
+     sourceApplication: sourceApplication,
+     annotation: annotation)
+     
+     return googleDidHandle || facebookDidHandle
+     }
+     
+     */
    
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
@@ -51,7 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate,GIDSignInDelegate {
         GMSPlacesClient.provideAPIKey("AIzaSyBXSZOOoR3kNLHEy1maOLnJzrUoGZRgAIM")
         AppEventsLogger.activate(application)
         GIDSignIn.sharedInstance().clientID = "47136168792-0lcmnml5i0ji6c01m1e7r8b16ct39rtj.apps.googleusercontent.com"
-        GIDSignIn.sharedInstance().delegate = self
+//        GIDSignIn.sharedInstance().delegate = self
         return true
     }
     

@@ -25,6 +25,8 @@ class MapVC: UIViewController {
         }
 
     }
+    @IBAction func openMaps(_ sender: UIButton) {
+    }
     override func loadView() {
        
         let camera = GMSCameraPosition.camera(withLatitude: 28.516682, longitude: 77.258041, zoom: 16.0)
@@ -35,7 +37,9 @@ class MapVC: UIViewController {
         marker.position = CLLocationCoordinate2D(latitude: 28.516682, longitude: 77.258041)
         marker.title = "Noida"
         marker.snippet = "India"
+        marker.icon = imageWithImage(image: UIImage(named: "letter_a")!, scaledToSize: CGSize(width: 40.0, height: 40.0))
         marker.map = mapView
+        mapView.selectedMarker = marker
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,6 +51,14 @@ class MapVC: UIViewController {
         print("locations = \(locValue.latitude) \(locValue.longitude)")
         self.lat = locValue.latitude
         self.lng = locValue.longitude
+    }
+    
+    func imageWithImage(image:UIImage, scaledToSize newSize:CGSize) -> UIImage{
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 0.0);
+        image.draw(in: CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height))
+        let newImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return newImage
     }
     
 
